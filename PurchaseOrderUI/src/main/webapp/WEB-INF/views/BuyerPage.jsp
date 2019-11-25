@@ -24,11 +24,9 @@
       <a class="nav-link" href="#">HomePage</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="getPurchaseOrderform">View All Products</a>
+      <a class="nav-link" href="getRaisePOform">Raise Purchase Order</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="getRaisePOForm">RaisePO</a>
-    </li>
+ 
     
     
     <li class="nav-item">

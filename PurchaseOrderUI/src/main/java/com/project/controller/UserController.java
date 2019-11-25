@@ -56,9 +56,9 @@ public class UserController {
                 HttpSession session;
                 
               @RequestMapping(value="/validate", method =RequestMethod.POST)
-            public String validateUser(@RequestParam String email ,@RequestParam String password)
+            public String validateUser(@RequestParam String email ,@RequestParam String pass)
            	{
-           		User uObj = userService.validateUser(email, password);
+           		User uObj = userService.validateUser(email, pass);
            		
            		if(uObj==null)
            		{
@@ -70,7 +70,7 @@ public class UserController {
            			if(uObj.getUserRole().equals("Buyer"))
            			{
            			
-           			return "Buyerpage";
+           			return "BuyerPage";
            			}
            			else if(uObj.getUserRole().equalsIgnoreCase("Vendor")) {
            				
@@ -79,9 +79,9 @@ public class UserController {
            			
            			else
            			{
-           				return "Success";
+           				return "success";
            			}
            		}
-           	}
+           	 }
            	
            }

@@ -11,8 +11,8 @@ public class HomeController {
                 @RequestMapping(value="/", method=RequestMethod.GET)
                 public String getHomePage(ModelMap map)
                 {
-                                map.addAttribute("msg","WELCOME.....");
-                                map.addAttribute("msg1","Ready To Shop...");
+                                map.addAttribute("msg","Welcome To Purchase Order .....");
+                               
                                 return "HomePage";
                 }
                 
