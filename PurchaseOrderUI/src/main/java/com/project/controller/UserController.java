@@ -1,14 +1,17 @@
 package com.project.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.project.model.User;
 import com.project.service.UserService;
@@ -34,12 +37,22 @@ public class UserController {
 //=======register the buyer=========
                 
                 @RequestMapping(value="/registerUser",method=RequestMethod.POST)
-                public String addRegister(@ModelAttribute User userObj )
+                public ModelAndView addRegister(@Valid @ModelAttribute("userObj") User userObj,BindingResult result )
                 {
-                                //if role
-                                userService.addUser(userObj);    //method call to service method 
-                                return "success";
+                	           //if role
+                	if(result.hasErrors())
+                	{
+                		ModelAndView mv=new ModelAndView("Register");
+                		return mv;
+                	}
+                	else {
+                		userService.addUser(userObj);    //method call to service method 
+        				ModelAndView mv=new ModelAndView("success");
+        				return mv;
+                	}
+                              
                 }
+
                 
 //=======open login form=========
                 
@@ -79,7 +92,7 @@ public class UserController {
            			
            			else
            			{
-           				return "success";
+           				return "sellersuccess";
            			}
            		}
            	 }

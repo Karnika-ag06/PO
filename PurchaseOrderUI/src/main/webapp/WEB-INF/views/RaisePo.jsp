@@ -8,10 +8,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Raise PO Form</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
+	
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -30,18 +31,14 @@
             var quantity = $("#quantity").val();
             
             
-            
-            
-            $.get("getProductNameById?productId="+items, function(data, status){
+           $.get("getProductNameById?productId="+items, function(data, status){
                 productObj=data;
                 
                 
-                var markup = "<tr><td><input type='checkbox' name='record'></td><td>"+items+"</td><td>" + productObj.productName + "</td><td>" + quantity + "</td></td>";
+         var markup = "<tr><td><input type='checkbox' name='record'></td><td>"+items+"</td><td>" + productObj.productName + "</td><td>" + quantity + "</td></td>";
                 $("table ").append(markup);
                 
               });
-            
-            
         });
         
         // Find and remove selected table rows
@@ -53,8 +50,50 @@
             });
         });
        
-        
-    });    
+        var purchaseOrderList = [];
+        $("#raisePO").click(function() {
+        	console.log('Hello 1');
+        	var table = $("table tbody");
+        	console.log('Hello 2');
+        	 
+        	table.find('tr').each(function (i, el) {
+        		 console.log('Hello 3');
+        		 
+        	        var $tds = $(this).find('td'),  
+        	        pId = $tds.eq(1).text(),
+        	        Quantity = $tds.eq(3).text();
+        	        
+        	        // do something with productId, product, Quantity
+        	        console.log('Hello 5');
+        	        
+        	        var myObj = {
+        	        		  productId: pId,
+        	        		  quantity:Quantity
+        	        		  
+        	        		};
+        	        purchaseOrderList.push(myObj);
+        	    });
+        	console.log(purchaseOrderList);
+        	
+         
+        $.ajax({
+            type: "POST",
+            url: "raisePO",
+            data: JSON.stringify(purchaseOrderList),
+            contentType: "application/json; charset=utf-8",
+            dataType: "text",
+            success: function(data){
+                alert("Purchase Order raised successfully!");
+                location.reload();
+           },
+            error: function(e) {
+                console.log('i m error');
+                
+            	console.log(e);
+            }
+        });
+	});
+});    
 </script>
 
 
@@ -64,11 +103,11 @@
 	<div class="container">
 	
 <h1 style="color: green;">Raise Po</h1>
- 		<form action="raisePO" method="post">
+ 		<form>
  	<select class="form-control name" name="items">
 						<option value="">Select your products</option>
 						<c:forEach items="${productDetails}" var="pObj">
-						<option value="${pObj.productId} "> 
+						<option value="${pObj.productId}"> 
 							${pObj.productName} 
 						</option>
 						</c:forEach>
@@ -101,51 +140,7 @@
 	</form>
 	</div>
 	</body>
-	<script>
-		$(document).ready(function(){
-			 
-			var purchaseOrderList = [];
-	        $("#raisePO").click(function() {
-	        	console.log('Hello 1');
-	        	var table = $("table tbody");
-	        	console.log('Hello 2');
-	        	 
-	        	table.find('tr').each(function (i, el) {
-	        		 console.log('Hello 3');
-	        	        var $tds = $(this).find('td'),
-	        	        	
-	        	            pId = $tds.eq(1).text(),
-	        	            Quantity = $tds.eq(3).text();
-	        	        
-	        	        // do something with productId, product, Quantity
-	        	        
-	        	        
-	        	        
-	        	        var myObj = {
-	        	        		  productId: pId,
-	        	        		  quantity:Quantity
-	        	        		  
-	        	        		};
-	        	        purchaseOrderList.push(myObj);
-	        	    });
-	        	console.log(purchaseOrderList);
-	        	
-	         
-	        $.ajax({
-	            type: "POST",
-	            url: "raisePO",
-	            data: JSON.stringify(purchaseOrderList),
-	            contentType: "application/json; charset=utf-8",
-	            dataType: "json",
-	            success: function(data){
-	                console.log(data);
-	           },
-	            error: function(err) {
-	                console.log(err);
-	            }
-	        });
-		});
-		});
-	</script>
+	 
+			
 </html>
 

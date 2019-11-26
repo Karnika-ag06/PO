@@ -20,6 +20,7 @@ public class PurchaseOrder {
 	
 
 	@Id
+	@Column(name="purchaseOrder_Id")
 	@GeneratedValue
 	private int purchaseOrderId;
 	
@@ -27,13 +28,19 @@ public class PurchaseOrder {
 	@JoinColumn(name="buyer_Id")
 	private User userObj;
 	
-	@ManyToOne
+    @ManyToOne
 	@JoinColumn(name="Seller_Id")
 	private User sellerObj;
 	
 	@OneToMany(mappedBy="purchaseOrderObj",cascade=CascadeType.ALL)
 	private List<PurchaseOrderItems> purchaseOrderItemsObj;
 	
+	@Column(name="status")
+	private String status;
+	
+	@Column(name="created_Date")
+	private LocalDate createdDate;
+
 	public int getPurchaseOrderId() {
 		return purchaseOrderId;
 	}
@@ -66,7 +73,21 @@ public class PurchaseOrder {
 		this.purchaseOrderItemsObj = purchaseOrderItemsObj;
 	}
 
-	
+	public String getStatus() {
+		return status;
+	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public LocalDate getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDate createdDate) {
+		this.createdDate = createdDate;
+	}
+	
 }
     

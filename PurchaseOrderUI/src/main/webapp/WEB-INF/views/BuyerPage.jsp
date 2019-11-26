@@ -26,15 +26,13 @@
     <li class="nav-item">
       <a class="nav-link" href="getRaisePOform">Raise Purchase Order</a>
     </li>
- 
-    
-    
+  <li class="nav-item">
+      <a class="nav-link" href="logout">LogOut </a>
+    </li>
     <li class="nav-item">
       <a class="nav-link" href="Reports">Reports</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" href="#">Disabled</a>
-    </li>
+    
 
   </ul>
 

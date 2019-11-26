@@ -2,6 +2,9 @@
 package com.project.daoimpl;
 
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,4 +39,19 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 			}
 			return false;
 	}
+
+
+		@Override
+		public List<PurchaseOrder> viewAllOrders() {
+			try {
+				Session session=sessionFactory.getCurrentSession();
+				Query q=session.createQuery("from com.project.model.PurchaseOrder where status='Sent to Seller'");
+		        return q.list();
+
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
 }

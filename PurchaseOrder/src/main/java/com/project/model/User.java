@@ -8,7 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -21,24 +23,26 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@NotNull
 	@Column(name="User_Id")
 	private int userId;
 	
 	@NotEmpty
 	@Size(min = 2, message = "User Name should be Atleast 4")
-	@Column(name="User_Name")
+	@Pattern(regexp="[^0-9]*",message="enter valid name")
+    @Column(name="User_Name")
 	private String userName;
 	
 	@Email(message = "email is not valid")
+	@NotNull
 	@Column(name="User_Email")
 	private String  userEmail;
 	
-	@NotEmpty
+	@NotEmpty(message="please enter your userAddress")
 	@Column(name="User_Address")
 	private String userAddress;
 	
-	@NotNull
+	@NotNull(message="please enter the mobile no.")
+	@Max(10)
 	@Column(name="User_Mobile")
 	private long userMobile;
 	
